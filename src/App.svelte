@@ -906,6 +906,15 @@
     </div>
   </section>
 
+  <section id="specialoffers" class="specialoffers">
+    <div class="heading">
+      <h2>Special offers</h2>
+      <p class="lead">Four homes at 7% off the list price until 31 December.</p>
+    </div>
+    <div class="cards grid">
+      
+    </div>
+  </section>
   <section id="catalog" class="catalog wrap">
     <div class="row">
       <div class="col-4">
