@@ -915,6 +915,8 @@
       
     </div>
   </section>
+
+
   <section id="catalog" class="catalog wrap">
     <div class="row">
       <div class="col-4">
@@ -1707,6 +1709,31 @@
 
   .gallery-shot:hover img {
     transform: scale(1.04);
+  }
+
+  .specialoffers {
+    max-width: 1440px;
+    width: 100%;
+
+    gap: 64px;
+    padding: 160px 32px 160px 32px;
+
+    background-color: var(--bg);
+  }
+
+  .heading {
+    width: 100%;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .cards {
+    width: 100%;
+
+    gap: 24px;
+    margin: var(--margin);
   }
 
   .catalog {
