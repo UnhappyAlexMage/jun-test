@@ -20,6 +20,7 @@
   import FlatModal from './components/FlatModal.svelte';
   import ModalLead from './components/ModalLead.svelte';
   import ModalCallback from './components/ModalCallback.svelte';
+  import OfferCard from './components/OfferCard.svelte';
 
   import quayAerial from './assets/about/quay-aerial.png';
   import interior1 from './assets/about/interior-1.png';
@@ -626,7 +627,7 @@
       list.forEach((flat) => {
         getJSON('/api/flats/' + flat.id + '.json').then((data) => {
           Object.assign(flat, data);
-          flats = flats;
+          flats = flats; //???
         });
       });
     });
@@ -912,7 +913,13 @@
       <p class="lead">Four homes at 7% off the list price until 31 December.</p>
     </div>
     <div class="cards grid">
-      
+      {#each calcFlats as flat (flat.id)}
+        <OfferCard 
+          flat={flat}
+        />
+        {:else}
+          <p>Loading data...</p>
+      {/each}
     </div>
   </section>
 
