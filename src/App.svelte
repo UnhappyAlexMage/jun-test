@@ -912,11 +912,13 @@
       <h2>Special offers</h2>
       <p class="lead">Four homes at 7% off the list price until 31 December.</p>
     </div>
-    <div class="cards grid">
+    <div class="row g-4" style="margin: var(--margin);">
       {#each calcFlats as flat (flat.id)}
+      <div class="col-12 col-sm-6 col-md-3">
         <OfferCard 
           flat={flat}
         />
+      </div>
         {:else}
           <p>Loading data...</p>
       {/each}
@@ -1719,7 +1721,7 @@
   }
 
   .specialoffers {
-    max-width: 1440px;
+    
     width: 100%;
 
     gap: 64px;
@@ -1734,13 +1736,6 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-  }
-
-  .cards {
-    width: 100%;
-
-    gap: 24px;
-    margin: var(--margin);
   }
 
   .catalog {
