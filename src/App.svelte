@@ -907,8 +907,8 @@
 
   <section id="specialoffers" class="specialoffers">
     <div class="heading">
-      <h2>Special offers</h2>
-      <p class="lead">Four homes at 7% off the list price until 31 December.</p>
+      <h2 class="section-title">Special offers</h2>
+      <p class="lead-offers">Four homes at 7% off the list price until 31 December.</p>
     </div>
     <div class="row g-4" style="margin: var(--margin);">
       {#each specialOffersFlats as flat (flat.id)}
@@ -1719,7 +1719,6 @@
   }
 
   .specialoffers {
-    
     width: 100%;
 
     gap: 64px;
@@ -1734,6 +1733,11 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+  }
+
+  .lead-offers {
+    font-size: var(--step-body);
+    color: var(--muted);
   }
 
   .catalog {
