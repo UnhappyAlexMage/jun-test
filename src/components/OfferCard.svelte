@@ -50,27 +50,25 @@
     }
 
     .building {
-
+        font-size: var(--step-body);
+        color: var(--muted);
     }
 
     .square {
-
+        color: var(--ink);
     }
 
     .aspect {
-
+        color: var(--muted);
+        font-size: var(--step-body);
     }
 
     .prices {
-
+        font-family: var(--font);
     }
 
-    .offerprice {
-
+    .more-info {
+        text-decoration: underline !important;
+        color: var(--ink);
     }
-
-    .listprice {
-
-    }
-
 </style>
