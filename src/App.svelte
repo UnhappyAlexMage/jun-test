@@ -136,6 +136,7 @@
   let floorTo = null;
   let query = '';
   let sort = 'price';
+  let specialOffersFlats = [];
 
   $: roomOptions = (config.filters && config.filters.rooms) || [0, 1, 2, 3, 4];
 
@@ -555,6 +556,9 @@
     });
     calcRows = pickFlats(all);
     window.appState.mortgage = { deposit, term, rate, flats: all };
+
+    //filter special offers in flats
+    specialOffersFlats = calcFlats.filter(calcFlat => window.appConfig.specialOffers.includes(calcFlat.id));
   }
 
   // progress
@@ -624,12 +628,6 @@
       flatsStore.set(list);
       window.appState.flats = list;
       tick().then(() => ScrollTrigger.refresh());
-      list.forEach((flat) => {
-        getJSON('/api/flats/' + flat.id + '.json').then((data) => {
-          Object.assign(flat, data);
-          flats = flats; //???
-        });
-      });
     });
 
     getJSON('/api/flats.json?v=2').then(preparePayments);
@@ -909,14 +907,16 @@
 
   <section id="specialoffers" class="specialoffers">
     <div class="heading">
-      <h2>Special offers</h2>
-      <p class="lead">Four homes at 7% off the list price until 31 December.</p>
+      <h2 class="section-title">Special offers</h2>
+      <p class="lead-offers">Four homes at 7% off the list price until 31 December.</p>
     </div>
-    <div class="cards grid">
-      {#each calcFlats as flat (flat.id)}
+    <div class="row g-4" style="margin: var(--margin);">
+      {#each specialOffersFlats as flat (flat.id)}
+      <div class="col-12 col-sm-6 col-md-3">
         <OfferCard 
           flat={flat}
         />
+      </div>
         {:else}
           <p>Loading data...</p>
       {/each}
@@ -1719,7 +1719,6 @@
   }
 
   .specialoffers {
-    max-width: 1440px;
     width: 100%;
 
     gap: 64px;
@@ -1736,11 +1735,9 @@
     align-items: center;
   }
 
-  .cards {
-    width: 100%;
-
-    gap: 24px;
-    margin: var(--margin);
+  .lead-offers {
+    font-size: var(--step-body);
+    color: var(--muted);
   }
 
   .catalog {
