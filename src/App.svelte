@@ -770,8 +770,10 @@
         muted
         playsinline
         preload="auto"
+        autoplay
+        loop
         on:loadeddata={() => (videoReady = true)}
-        style="opacity: {videoReady ? 1 : 0}"
+        style="opacity: {videoReady ? 1 : 0}; transition: 0.5s easy;"
       ></video>
       <div class="hero-scrim hero-scrim-top"></div>
       <div class="hero-scrim hero-scrim-bottom"></div>
@@ -1226,7 +1228,7 @@
 
   <footer id="footer" class="footer">
     <div class="footer-photo">
-      <img src="/media/photos/cranes-dusk.png" />
+      <img src="/media/photos/cranes-dusk.png" loading="lazy"/>
     </div>
     <div class="footer-side">
       <a class="footer-mark" href="#hero">{title}</a>
