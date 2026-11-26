@@ -198,7 +198,7 @@
       heroVideo.currentTime = p * heroVideo.duration;
     }
     heroBg.style.top = y * 0.35 + 'px';
-    heroCopy.style.opacity = Math.max(0, 1 - p * 3);
+    heroCopy.style.opacity = Math.max(0, 8 - p * 3);
 
     topBar.style.height = Math.max(80, 84 - y / 60) + 'px';
     if (y > lastY && y > 320) {
@@ -350,11 +350,12 @@
       onComplete: () => {
         gsap
           .timeline({ scrollTrigger: { trigger: heroStage, start: 'top top', end: '+=480', scrub: true } })
-          .fromTo(split.lines[0], { yPercent: 0, opacity: 1 }, { yPercent: -105, opacity: 0, ease: 'none', immediateRender: false })
-          .fromTo(split.lines[1], { yPercent: 0, opacity: 1 }, { yPercent: 105, opacity: 0, ease: 'none', immediateRender: false }, 0);
+        //   // .fromTo(split.lines[0], { yPercent: 0, opacity: 1 }, { yPercent: -105, opacity: 0, ease: '1', immediateRender: false })
+        //   // .fromTo(split.lines[1], { yPercent: 0, opacity: 1 }, { yPercent: 105, opacity: 0, ease: '1', immediateRender: false }, 0);
+          .to([heroTitle, heroCopy], {opacity: 0.85, y: -10, ease: 'none'}); 
       },
     });
-    gsap.from(heroCopy.children, { top: 24, opacity: 0, duration: 0.7, ease: 'power3.out', delay: 0.6 });
+    gsap.from(heroCopy.children, { y: 24, opacity: 0}, { y: 0, opacity: 1, duration: 0.7, ease: 'power3.out', delay: 0.6 });
   }
 
   function reveal(targets, trigger, vars) {
@@ -386,8 +387,9 @@
     });
 
     gsap
-      .timeline({ scrollTrigger: { trigger: openingEl, start: 'top top', end: 'bottom bottom', scrub: true } })
-      .fromTo(openingWindow, { width: '40%', height: '76%' }, { width: '100%', height: '100%', ease: 'none', duration: 0.75 })
+      .timeline({ scrollTrigger: { trigger: heroStage, start: 'top+480 top', end: '+-=600', scrub: true, invalidateOnRefresh: true } })
+      .set(heroCopy.children, { opacity: 1 }, 0)
+      .fromTo(openingWindow, { scaleX: 0.4, scaleY: 0.76 }, { scaleX: 1, scaleY: 1, ease: 'none', duration: 0.75 })
       .fromTo(openingImg, { scale: 1.15 }, { scale: 1, ease: 'none', duration: 0.75 }, 0)
       .to({}, { duration: 0.25 });
 
@@ -657,7 +659,7 @@
     ScrollTrigger.create({
       trigger: heroStage,
       start: 'top top',
-      end: '+=200%',
+      end: '+=1000',
       pin: true,
     });
 
@@ -1326,13 +1328,14 @@
 
   .hero {
     position: relative;
+    overflow: hidden;
   }
 
   .hero-stage {
     position: relative;
     width: 100%;
     height: 100vh;
-    overflow: hidden;
+
     display: grid;
     grid-template-rows: auto 1fr auto;
     background: #c6c7c6;
@@ -1357,6 +1360,7 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+    z-index: 1;
     transition: opacity 1.2s var(--ease-soft);
     will-change: opacity;
   }
@@ -1389,7 +1393,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    z-index: 2;
+    z-index: 999;
     display: grid;
     grid-template-rows: auto 1fr auto;
     font-size: var(--step-display);
@@ -1423,12 +1427,13 @@
 
   .hero-copy {
     position: absolute;
-    z-index: 3;
+    z-index: 1000;
     top: 38%;
     left: var(--margin);
     visibility: hidden;
     font-size: var(--step-body);
     line-height: 1.5;
+    pointer-events: auto;
   }
 
   .hero-copy > * {
