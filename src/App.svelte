@@ -284,6 +284,7 @@
     rooms = rooms.indexOf(r) > -1 ? rooms.filter((x) => x !== r) : [...rooms, r];
   }
 
+  //filter list by query
   function onSearch(e) {
     query = e.target.value;
     getJSON('/api/flats.json?q=' + query).then((list) => {
@@ -628,10 +629,14 @@
       flatsStore.set(list);
       window.appState.flats = list;
       tick().then(() => ScrollTrigger.refresh());
+
+      calcFlats = list;
+      onCalc();
     });
 
     getJSON('/api/flats.json?v=2').then(preparePayments);
 
+    //price updates at a specified interval
     setInterval(() => {
       getJSON('/api/prices.json').then((data) => {
         const map = {};
@@ -684,10 +689,11 @@
       }
     }, 4500);
 
-    getJSON('/api/flats.json?_=' + Date.now()).then((list) => {
-      calcFlats = list;
-      onCalc();
-    });
+    //Is a Cache Busting needed?
+    // getJSON('/api/flats.json?_=' + Date.now()).then((list) => {
+    //   calcFlats = list;
+    //   onCalc();
+    // });
 
     map = new maplibregl.Map({
       container: mapEl,
