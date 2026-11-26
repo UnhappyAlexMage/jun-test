@@ -13,6 +13,7 @@
             error.currentTarget.onerror = null;
             error.currentTarget.src = './design/special-offers/assets/default-image.png';
         }}
+        loading="lazy"
     />
     <div class="body-offercard">
         <p class="building">Address: {flat.building}, {flat.floor}</p>
