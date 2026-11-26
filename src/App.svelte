@@ -844,18 +844,21 @@
           <div class="row feature-row">
             <div class="col-6">
               <h3 class="feature-title">
-                <img class="feature-icon" src={icons[adv.icon]} alt="" style="width: 24px; height: 24px" />
+                <img class="feature-icon" src={icons[adv.icon]} alt="feature-icons" style="width: 24px; height: 24px" loading="lazy"/>
                 {adv.title}
               </h3>
               <p class="feature-text">{@html adv.text}</p>
             </div>
             <div class="col-6 feature-side">
               <div class="feature-photo" style="width: {photoSizes[i % 3].w}px; aspect-ratio: {photoReady[i] ? photoSizes[i % 3].ratio : 'auto'}">
-                <img
-                  src={featurePhotos[i] ? featurePhotos[i].src : ''}
-                  alt={featurePhotos[i] ? featurePhotos[i].alt : ''}
-                  on:load={() => (photoReady[i] = true)}
-                />
+                {#if featurePhotos[i]}
+                  <img
+                    loading="lazy"
+                    src={featurePhotos[i] ? featurePhotos[i].src : ''}
+                    alt={featurePhotos[i] ? featurePhotos[i].alt : ''}
+                    on:load={() => (photoReady[i] = true)}
+                  />
+                {/if}
               </div>
             </div>
           </div>
@@ -1073,7 +1076,7 @@
   <section id="progress" class="progress-section">
     <div class="progress-panel">
       {#if construction.length}
-        <img class="progress-img progress-img-on" src={construction[construction.length - 1].photos[0]} />
+        <img class="progress-img progress-img-on" src={construction[construction.length - 1].photos[0]} loading="lazy"/>
       {/if}
       <div class="progress-shade"></div>
       <div class="progress-band">
@@ -1090,6 +1093,7 @@
             class:progress-img-on={progressAir[i] ? n === 0 : n === 1}
             src={photo}
             alt={monthTitle(item.month) + ', ' + (n === 0 ? 'from the air' : 'on the ground')}
+            loading="lazy"
           />
         {/each}
         <div class="progress-shade"></div>
@@ -1111,7 +1115,7 @@
       <div class="col-5">
         <div class="news-photo">
           {#each news as item, i}
-            <img class:news-photo-on={i === newsActive} src={item.image} alt={item.title} />
+            <img class:news-photo-on={i === newsActive} src={item.image} alt={item.title} loading="lazy"/>
           {/each}
         </div>
       </div>
